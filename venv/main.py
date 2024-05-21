@@ -22,19 +22,21 @@ def main(page: ft.Page):
     page.bgcolor = ft.colors.AMBER_100
 
     def escolher_nova_palavra():
-        nonlocal choiced, word
+        nonlocal choiced
         choiced = random.choice(lista).upper()
         victim.data = 0
         victim.src = 'images/forca_0.png'
-        victim.update()
+        word.controls = [adivinhar('_') for _ in choiced]
         for control in keyboard_controls:
-            control.disabled = False,
+            control.disabled = False
             control.gradient = ft.LinearGradient(
                 begin=ft.alignment.top_center,
                 end=ft.alignment.bottom_center,
                 colors=[ft.colors.AMBER, ft.colors.DEEP_ORANGE]
             )
             control.update()
+        word.update()
+        victim.update()
         page.update()
 
     lista = ['Goiaba', 'Maca', 'Manga', 'Maracujá', 'Uva', 'Tangerina', 'Beterraba', 'Abacaxi']
@@ -52,8 +54,13 @@ def main(page: ft.Page):
             victim.data += 1
 
             if victim.data > 6:
-                page.dialog = ft.AlertDialog(title=ft.Text(value="Você perdeu. :("), open=True)
+                page.dialog = ft.AlertDialog(
+                    title=ft.Text(value="Você perdeu. :("),
+                    on_dismiss=lambda e: escolher_nova_palavra(),
+                    open=True
+                )
                 page.update()
+                return
 
             erros = victim.data
             victim.src = f'images/forca_{erros}.png'
@@ -80,16 +87,14 @@ def main(page: ft.Page):
         height=300,
     )
 
-
     word = ft.Row(
         col={'xs': 12, 'lg': 6},
         alignment=ft.MainAxisAlignment.CENTER,
         controls=[
-            adivinhar('_') for letter in choiced
+            adivinhar('_') for _ in choiced
         ]
     )
 
-    
     game = ft.Container(
         col={'xs': 12, 'lg': 6},
         width=400,
@@ -116,7 +121,6 @@ def main(page: ft.Page):
                 word,
             ]
         )
-
     )
 
     keyboard_controls = [
@@ -183,7 +187,7 @@ def main(page: ft.Page):
             game_keyboard_row,
             scene
         ],
-        alignment=ft.MainAxisAlignment.START,  # Alinhamento no topo
+        alignment=ft.MainAxisAlignment.START,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER
     )
 
