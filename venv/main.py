@@ -18,6 +18,7 @@ def adivinhar(letter):
     )
 
 def main(page: ft.Page):
+    page.title = "Jogo da Forca - FRUTAS"
     page.scroll = ft.ScrollMode.AUTO
     page.bgcolor = ft.colors.AMBER_100
 
