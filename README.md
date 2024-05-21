@@ -18,10 +18,10 @@ Se pode fazer os itens responsive caso use imagens no keyboard e game, mas prefe
             control.update()
         word.update()
         victim.update()
-        page.update()
+        page.update()  -> Função com o fim de atualizar uma nova palavra no game
 
     lista = ['Goiaba', 'Maca', 'Manga', 'Maracujá', 'Uva', 'Tangerina', 'Beterraba', 'Abacaxi']
-    choiced = random.choice(lista).upper() -> Função com o fim de atualizar uma nova palavra no game
+    choiced = random.choice(lista).upper()
 
     keyboard_controls = [
         ft.Container(
